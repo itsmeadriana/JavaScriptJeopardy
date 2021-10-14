@@ -111,7 +111,7 @@ const generateQuestion = function () {
 const checkAnswer = function (event) {
     // variable for result message
     const messages = document.querySelector("#messages");
-    
+
     // in the case that the event returns undefined, display end-of-quiz view
     if (event === undefined) {
         questionContainer.className = "hidden";
@@ -291,19 +291,17 @@ var showLeaderboard = function () {
 const viewLeaderboardOnClick = function () {
     // stop the timer and hide quiz if activated in the middle of a quiz
     if (quizInProgress === true) {
-        // timeLeft = 0;
         questionContainer.className = "hidden";
     }
-   
-    // questionContainer.className = "hidden";
-    
+
     leaderboardContainer.className = "container";
-    startContainer.className = "hidden";  
+    startContainer.className = "hidden";
     header.className = "hidden";
 
     showLeaderboard();
 }
 
+// function to start quiz
 const startQuiz = function () {
     startContainer.className = "hidden";
 
@@ -312,13 +310,11 @@ const startQuiz = function () {
     generateQuestion();
 }
 
+// event listeners:
 leaderboardButton.addEventListener("click", viewLeaderboardOnClick)
-
 startButton.addEventListener("click", startQuiz);
 answers.addEventListener("click", generateNextQuestion);
-
 endOfQuiz.addEventListener("submit", enterInitials);
-
 reloadButton.addEventListener("click", function () {
     window.location.reload();
 });
