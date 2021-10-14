@@ -1,0 +1,237 @@
+@font-face{ 
+	font-family: 'Geopardy';
+	src: url('./webfontkit/geoparody_rg-webfont.woff');
+}
+
+@font-face {
+    font-family: 'Marcellus', serif;
+    src: url(https://fonts.google.com/share?selection.family=Marcellus)
+}
+
+/* Color palette */
+:root {
+    --background-color: #060ce9; 
+    --text-color: #f5f5f5; 
+    --accent-color: #1ce0ca;
+    --accent-color-2: gold;
+
+}
+
+/* running a TIGHT ship */
+*,
+*::before,
+*::after {
+    margin: 0; 
+    padding: 0;
+    box-sizing: border-box; 
+}
+
+/* communal styles */
+header {
+    display: flex; 
+    justify-content: space-between;
+    align-items: center; 
+    padding: 0 2rem; 
+    font-size: 16px;
+    margin: 2rem 0 7rem 0; 
+}
+
+h1 {
+    font-family: 'Geopardy'
+}
+
+#title {
+    font-size: 5em;
+}
+
+body {
+    font-family: "Marcellus", sans-serif; 
+    background-color: var(--background-color); 
+    color: var(--text-color); 
+}
+
+/* main {
+    background-image: url();
+    background-color: var(--background-color);
+    border: 1px var(--accent-color);
+} */
+
+/* communal styles */
+.container {
+    display: flex;
+    align-items: center;  
+    flex-direction: column; 
+    flex-wrap: wrap;  
+    margin: 0 auto; 
+    width: 50%; 
+    text-align: center; 
+}
+
+.btn, .input {
+    font-size: 100%;
+    font-family: inherit;
+    padding: 0.25rem 0.4rem; 
+    background-color: var(--black);
+    color: var(--text-color);  
+    border-width: 3.5px; 
+    border-radius: 3rem; 
+    border-color: var(--accent-color); 
+    margin-top: 0.5rem; 
+    outline: none; 
+    transition: border 150ms ease-in;
+    transition: background-color 150ms ease-in; 
+}
+
+.btn:hover, .input:hover {
+    border-color:var(--accent-color);
+    box-shadow:1px 1px 1px rgb(209, 209, 209); 
+    background-color: var(--text-color);
+    color: var(--accent-color);
+}
+
+.input:hover {
+    color: var(--text-color);
+}
+
+.btn:focus, .input:focus {
+    border-color: goldenrod;
+    box-shadow:1px 1px 1px var(--accent-color-2); 
+    background-color: var(--accent-color-2);
+    color:#060ce9;
+}
+
+.btn-wrapper {
+    display: flex;
+    justify-content: space-between; 
+    margin-top: 0.5rem; 
+}
+
+.input::placeholder {
+    color: var(--text-color); 
+}
+
+/* starting screen view */
+#start-container {
+    justify-self: center;
+}
+
+.startScreen {
+    display: flex;
+    align-items: center;  
+    flex-direction: column; 
+    flex-wrap: wrap;  
+    margin: 0 auto; 
+    width: 75%; 
+    text-align: center;
+}
+
+/* questions */
+#question-container {
+    flex-direction: row; 
+    text-align: left; 
+}
+
+#question {
+    width: 100%; 
+}
+
+/* answer-list */
+#answers {
+    
+    margin-left: 1rem; 
+}
+
+#answers li{
+    color: gold;
+    margin: 0.5rem 0; 
+}
+
+#answers li button {
+    color:gold;
+    margin-left: 0.4rem; 
+    border-color: gold;
+}
+
+#answers li button:hover {
+    color: var(--background-color);
+}
+
+/* results view */
+#endOfQuizContainer {
+    flex-direction: column;
+    width: 100%; 
+    justify-self: center;
+}
+
+.viewScore {
+    margin: 10px;
+}
+
+.prompt {
+    margin: 10px;
+}
+
+#result {
+    font-family: 'Geopardy';
+    color: gold;
+    font-size: larger;
+    padding: 10px;
+    border: dotted gold 2px;
+    border-radius: 3rem;
+}
+
+/* leaderboard view */
+ #leaderboard-container { 
+    margin-top: 180px; 
+}
+#leaderboard {
+    font-size: 20px;
+    border: 2px solid var(--black); 
+    border-radius: 3rem; 
+    padding: 5rem; 
+    transition: border 150ms ease-in; 
+    transition: background-color 150ms ease-in; 
+}
+
+#leaderboard:focus, #leaderboard:hover {
+    background-color: var(--accent-color-2); 
+    border-color: var(--accent-color-2);
+}
+#leaderboard-container h1, #leaderboard-list, .btn-wrapper {
+    width: 100%; 
+}
+
+#leaderboard-list li {
+    margin: 10px;  
+}
+
+#leaderboard-list li:nth-child(odd) {
+    border: 2px solid gold; 
+    border-radius: 3rem;
+    transition: border; 
+}
+
+#leaderboard-list li:nth-child(even) {
+    border: 2px solid var(--accent-color);
+    border-radius: 3rem;
+    transition: border 200ms ease-in; 
+}
+
+#leaderboard-list li:hover {
+    border: 2px dotted; 
+}
+
+/* check answers div */
+#messages {
+    display: flex; 
+    justify-content: center;
+    color: var(--accent-color-2); 
+    margin-top: 2rem;
+    font-size: 20px; 
+    text-shadow: grey;
+}
+
+/* Hide class to hide containers that should not be active for certain quiz-phases */
+.hidden {
+    display: none;
+}

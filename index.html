@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Marcellus&display=swap" rel="stylesheet">
+    <title>JavaScript Quiz</title>
+</head>
+
+<body>
+    <header>
+        <button class="btn">
+            <h2 id="leaderboard-btn">LEADERBOARD</h2>
+        </button>
+        <div id="timer">TIMER: 00:00</div>
+    </header>
+
+    <main>
+        <hero>
+            <section id="start-container" class="startScreen">
+                <h1 id="title">
+                    JavaScript Jeopardy
+                </h1>
+                <br>
+                <p>Test your JavaScript genius!</p>
+                <br>
+                <button id="start-btn" class="btn">WHAT IS JAVASCRIPT?</button>
+            </section>
+            <!-- Question panel shows each question in the quiz -->
+            <section id="question-container" class=hidden">
+                <h1 id="question"></h1>
+                <ol type="a" id="answers"></ol>
+            </section>
+            <!-- Score submission panel when quiz is done, or time runs out-->
+            <section id="endOfQuizContainer" class="hidden">
+                <div class="viewScore">
+                    <h1>Let's see how you did!!</h1>
+                    <div class="prompt">
+                        <p>Please enter your name to add your score to the leaderboard!</p>
+                        <br><br><span id="result"></span>
+                    </div>
+                </div>
+                <form id="initials-entry">
+                    <input type="text" name="initials" placeholder="Enter your name here" class="input">
+                    <button type="submit" id="submit-initials-btn" class="btn">Add Score</button>
+                </form>
+            </section>
+            <!-- Highscore panel when either view highscores is clicked or score is submitted -->
+            <section id="leaderboard-container" class="hidden">
+                <h1>Leaderboard:</h1>
+                <ol id="leaderboard-list"></ol>
+                <div class="btn-wrapper">
+                    <button id="reload-btn" class="btn">Play Again!</button>
+                    <!-- <button id="clear-btn" class="btn">Clear Scores</button> -->
+                </div>
+            </section>
+            <div id="messages" class=""></div>
+        </hero>
+    </main>
+    <script src="./assets/js/script.js"></script>
+</body>
+
+</html>
