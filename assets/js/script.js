@@ -21,6 +21,8 @@ let timeLeft = 60;
 let currentQuestionIndex = 0;
 let score = 0;
 let leaderboardStorage = [];
+
+// QUIZ!!
 let questions = [
     {
         question: "Who invented JavaScript?",
@@ -84,7 +86,7 @@ let questions = [
     },
 ];
 
-// Create a function to generate the questions 
+// function that grabs questions and answers from question array and displays it in the DOM
 const generateQuestion = function () {
     if (!timeExpired() && quizInProgress()) {
         question.textContent = questions[currentQuestionIndex].question;
@@ -107,33 +109,43 @@ const generateQuestion = function () {
 
 //checks answers and increases score based on correct answers + time left; decreases time Left for every wrong answer
 const checkAnswer = function (event) {
+    // variable for result message
     const messages = document.querySelector("#messages");
+    
+    // in the case that the event returns undefined, display end-of-quiz view
     if (event === undefined) {
         questionContainer.className = "hidden";
         timeLeft = 0;
         timer.textContent = "Time Left: " + timeLeft;
         endOfQuiz.className = "container";
         messages.textContent = "You're out of time!";
-    } else {
+    }
+    // else statement to handle other conditions of event feedback 
+    else {
+        // if the answer button clicked matches the correct answer according to the position of the question in the array, add 10 points to score
         if (event.target.textContent === questions[currentQuestionIndex - 1].answer) {
             score = score + 10;
             messages.textContent = "That's correct!";
         }
+        // if more than 10 seconds remain and answer button clicked doesn't match the correct answer, subtract 10 seconds from timer
         else if (timeLeft > 10) {
             timeLeft = timeLeft - 10;
             timer.textContent = "Time Left: " + timeLeft;
             messages.textContent = "Sorry, wrong answer.";
         }
+        // in the case that the user runs out the clock either by incorrect answers or poor time management, continue to end game function
         else {
+            messages.textContent = "You're out of time!";
             endGame();
         }
     }
-    // transition check message 
+    // make correct/incorrect/time's up message disappear after 0.8th of a second
     const clearMessages = setTimeout(function () {
         messages.textContent = "";
     }, 800);
 }
 
+// timer function!
 const countdown = function () {
     const timer = setInterval(function () {
 
@@ -161,6 +173,7 @@ const countdown = function () {
     }, 1000);
 };
 
+// conditions for continuing quiz
 const timeExpired = function () {
     return timeLeft <= 0;
 }
@@ -169,6 +182,7 @@ const quizInProgress = function () {
     return currentQuestionIndex < questions.length
 }
 
+// function that checks quiz state and handles next action
 const generateNextQuestion = function (event) {
     if (!timeExpired() && quizInProgress()) {
         checkAnswer(event);
@@ -180,7 +194,9 @@ const generateNextQuestion = function (event) {
     }
 }
 
+// function that 
 const enterInitials = function (event) {
+    // prevents event bubbling
     event.preventDefault();
 
     const playerInitials = document.querySelector("input[name='initials").value;
@@ -201,20 +217,26 @@ const enterInitials = function (event) {
     }
 }
 
+// function to add score to leaderboard
 const addNewScoreToLeaderBoard = function (scoreAsJSON) {
+    // the leaderboard will retrieve any stored score info from local storage;
     let leaderboard = localStorage.getItem("leaderboard");
+
+    // convert JSON string to JSON object
     let leaderboardAsJSON = JSON.parse(leaderboard);
 
+    // if leaderboard array is empty, create a new one and add new score as JSON object
     if (leaderboardAsJSON === null) {
         leaderboardAsJSON = []
     }
     leaderboardAsJSON.push(scoreAsJSON);
 
-
+    // convert JSON object into JSON string so the leaderboard is legible
     let leaderboardAsString = JSON.stringify(leaderboardAsJSON);
     localStorage.setItem("leaderboard", leaderboardAsString);
 }
 
+// function to end game: clear views, display score and add-name input form
 const endGame = function () {
     answers.textContent = "";
     timerContinue = false;
@@ -226,39 +248,57 @@ const endGame = function () {
     results.textContent = "Final Score: " + score;
 }
 
+// function to view leaderboard
 var showLeaderboard = function () {
+    // delete previous leaderboard
     leaderboardList.textContent = "";
 
+    // grab leaderboard JSON object from local storage
     let leaderboardObject = localStorage.getItem("leaderboard");
 
-    if (leaderboardObject.length === 0) {
+    // if the leaderboard JSON object is empty, return none
+    if (leaderboardObject.length === null) {
         return false;
     }
 
+    // convert scores as JSON string into JSON object
     let savedScoreResults = JSON.parse(leaderboardObject);
 
+    // sort JSON objects by ascending score
     savedScoreResults.sort(function (a, b) {
         if (a.score < b.score) return 1;
         if (b.score < a.score) return -1;
         return 0;
     })
 
+    // for each saved score, create a list item
     savedScoreResults.forEach(function (results) {
         const leaderboardEntry = document.createElement("li");
 
+        // separate results into initials keys and score values
         let initials = results.initials
         let score = results.score
+
+        // display each leaderboard entry as Initials - Score
         leaderboardEntry.textContent = `${initials} - ${score}`;
+
+        // append new leaderboard entry to the leaderboard list
         leaderboardList.appendChild(leaderboardEntry);
     })
 }
 
+// access leaderboard by clicking the leaderboard button at the top of the page
 const viewLeaderboardOnClick = function () {
-    timerContinue = false;
-
+    // stop the timer and hide quiz if activated in the middle of a quiz
+    if (quizInProgress === true) {
+        // timeLeft = 0;
+        questionContainer.className = "hidden";
+    }
+   
+    // questionContainer.className = "hidden";
+    
     leaderboardContainer.className = "container";
-    startContainer.className = "hidden";
-    questionContainer.className = "hidden";
+    startContainer.className = "hidden";  
     header.className = "hidden";
 
     showLeaderboard();
